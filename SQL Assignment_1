@@ -57,4 +57,80 @@ ORDER BY name;
 
                                               TASK-3
                                               
-                                              
+CREATE table TRANSACTIONS(
+AMOUNT INT NOT NULL,
+`DATE` DATE NOT NULL
+);
+SELECT * FROM TRANSACTIONS;
+
+INSERT INTO TRANSACTIONS VALUES(-10,'2020-01-14');
+INSERT INTO TRANSACTIONS VALUES(-75,'2020-01-20');
+INSERT INTO TRANSACTIONS VALUES(-5,'2020-01-25');
+INSERT INTO TRANSACTIONS VALUES(-4,'2020-01-29');
+INSERT INTO TRANSACTIONS VALUES(2000,'2020-03-10');
+INSERT INTO TRANSACTIONS VALUES(-75,'2020-03-12');
+INSERT INTO TRANSACTIONS VALUES(-20,'2020-03-15');
+INSERT INTO TRANSACTIONS VALUES(40,'2020-03-15');
+INSERT INTO TRANSACTIONS VALUES(-50,'2020-03-17');
+INSERT INTO TRANSACTIONS VALUES(200,'2020-10-10');
+INSERT INTO TRANSACTIONS VALUES(-200,'2020-10-10');               
+
+
+Select ( sum(a.total) - (12- count(b.cnt ))*5 ) as result From  
+(Select sum(amount) as total , 'A' as name from  transactions  ) as a  left join  
+(Select  count(amount) as cnt  , 'A' as name
+From transactions 
+where amount <0 
+group by month(date) 
+having not(count(amount) <3 or  sum(amount) >-100) ) as b 
+on a.name = b.name
+
+
+CREATE table  TRANSACTIONS(
+AMOUNT INT NOT NULL,
+`DATE` DATE NOT NULL
+);
+
+INSERT INTO TRANSACTIONS VALUES(1,'2020-06-29');
+INSERT INTO TRANSACTIONS VALUES(35,'2020-02-20');
+INSERT INTO TRANSACTIONS VALUES(-50,'2020-02-03');
+INSERT INTO TRANSACTIONS VALUES(-1,'2020-02-26');
+INSERT INTO TRANSACTIONS VALUES(-200,'2020-08-01');
+INSERT INTO TRANSACTIONS VALUES(-44,'2020-02-07');
+INSERT INTO TRANSACTIONS VALUES(-5,'2020-02-25');
+INSERT INTO TRANSACTIONS VALUES(1,'2020-06-29');
+INSERT INTO TRANSACTIONS VALUES(1,'2020-06-29');
+INSERT INTO TRANSACTIONS VALUES(-100,'2020-12-29');
+INSERT INTO TRANSACTIONS VALUES(-100,'2020-12-30');
+INSERT INTO TRANSACTIONS VALUES(-100,'2020-12-31');
+
+Select ( sum(a.total) - (12- count(b.cnt ))*5 ) as result From  
+(Select sum(amount) as total , 'A' as name from  transactions  ) as a  left join  
+(Select  count(amount) as cnt  , 'A' as name
+From transactions 
+where amount <0 
+group by month(date) 
+having not(count(amount) <6 or  sum(amount) >-100) ) as b 
+on a.name = b.name;
+
+
+CREATE table  TRANSACTIONS(
+AMOUNT INT NOT NULL,
+`DATE` DATE NOT NULL
+);
+
+INSERT INTO TRANSACTIONS VALUES(6000,'2020-04-03');
+INSERT INTO TRANSACTIONS VALUES(5000,'2020-04-02');
+INSERT INTO TRANSACTIONS VALUES(4000,'2020-04-01');
+INSERT INTO TRANSACTIONS VALUES(3000,'2020-03-01');
+INSERT INTO TRANSACTIONS VALUES(2000,'2020-02-01');
+INSERT INTO TRANSACTIONS VALUES(1000,'2020-01-01');
+
+Select ( sum(a.total) - (12- count(b.cnt ))*5 ) as result From  
+(Select sum(amount) as total , 'A' as name from  transactions  ) as a  left join  
+(Select  count(amount) as cnt  , 'A' as name
+From transactions 
+where amount <0 
+group by month(date) 
+having not(count(amount) <0 or  sum(amount) >-100) ) as b 
+on a.name = b.name;
