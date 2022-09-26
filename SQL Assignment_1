@@ -1,1 +1,60 @@
+                                              TASK-1
+create database HIRING_ABC_COMPANY;
+USE HIRING_ABC_COMPANY;
 
+CREATE TABLE SHOPPING_HISTORY(
+PRODUCT VARCHAR(100),
+QUANTITY INT NOT NULL,
+UNIT_PRICE INT NOT NULL
+);
+
+INSERT INTO SHOPPING_HISTORY VALUES ('MILK','3','10');
+INSERT INTO SHOPPING_HISTORY VALUES ('BREAD','7','3');
+INSERT INTO SHOPPING_HISTORY VALUES ('BREAD','5','2');
+
+SELECT * FROM SHOPPING_HISTORY;
+
+SELECT PRODUCT, sum(QUANTITY*UNIT_PRICE) as TOTAL_PRICE FROM SHOPPING_HISTORY group by PRODUCT;
+
+                                              TASK-2
+   CREATE TABLE PHONES(
+`NAME` VARCHAR(20) NOT NULL,
+PHONE_NUMBER INT NOT NULL
+);
+CREATE TABLE CALLS(
+ID INT NOT NULL,
+CALLER INT NOT NULL,
+CALLEE INT NOT NULL,
+DURATION INT NOT NULL,
+UNIQUE(ID)
+);
+
+INSERT INTO PHONES values ('JACK', 1234);
+INSERT INTO PHONES values ('LENA', 3333);
+INSERT INTO PHONES values ('MARK', 9999);
+INSERT INTO PHONES values ('ANNA', 7582);
+
+INSERT INTO CALLS values (25, 1234, 7582, 8);
+INSERT INTO CALLS values (7, 9999, 7582, 1);
+INSERT INTO CALLS values (18, 9999, 3333, 4);
+INSERT INTO CALLS values (2, 7582, 3333, 3);
+INSERT INTO CALLS values (3, 3333, 1234, 1);
+INSERT INTO CALLS values (21, 3333, 1234, 1);
+
+SELECT * FROM PHONES;
+SELECT * FROM CALLS;
+
+with call_duration as (
+select caller as phone_number, sum(duration) as duration from calls group by caller
+union all
+select callee as phone_number, sum(duration) as duration from calls group by callee
+)
+SELECT name
+FROM phones p join call_duration cd on cd.phone_number = p.phone_number
+GROUP BY name
+HAVING SUM(duration) >= 10
+ORDER BY name;
+
+                                              TASK-3
+                                              
+                                              
